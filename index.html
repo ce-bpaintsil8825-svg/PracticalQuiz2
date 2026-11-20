@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A-Frame Individual Assessment - 01</title>
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+</head>
+<body>
+  <a-scene renderer="antialias: true; colorManagement: true; highRefreshRate: true" shadow="type: pcfsoft">
+    
+    <!-- Procedural Textures via Assets (No external files needed) -->
+    <a-assets>
+      <!-- Green Checkered Grass Texture -->
+      <canvas id="grass-tex" width="512" height="512"></canvas>
+      <!-- Milo Label Texture -->
+      <canvas id="milo-tex" width="1024" height="512"></canvas>
+      <!-- Milk Label Texture -->
+      <canvas id="milk-tex" width="1024" height="512"></canvas>
+    </a-assets>
+
+    <script>
+      // 1. Draw Checkered Green Grass Pattern
+      const grassCanvas = document.getElementById('grass-tex');
+      const gCtx = grassCanvas.getContext('2d');
+      gCtx.fillStyle = '#0b7a0b';
+      gCtx.fillRect(0, 0, 512, 512);
+      gCtx.fillStyle = '#065c06';
+      gCtx.fillRect(0, 0, 256, 256);
+      gCtx.fillRect(256, 256, 256, 256);
+
+      // 2. Draw Milo Tin Label
+      const miloCanvas = document.getElementById('milo-tex');
+      const mCtx = miloCanvas.getContext('2d');
+      mCtx.fillStyle = '#007a33';
+      mCtx.fillRect(0, 0, 1024, 512);
+      mCtx.fillStyle = '#4e2a14';
+      mCtx.fillRect(0, 170, 1024, 172);
+      mCtx.fillStyle = '#ffffff';
+      mCtx.font = 'bold 128px Arial';
+      mCtx.textAlign = 'center';
+      mCtx.fillText('MILO', 512, 296);
+
+      // 3. Draw Milk Tin Label
+      const milkCanvas = document.getElementById('milk-tex');
+      const mkCtx = milkCanvas.getContext('2d');
+      mkCtx.fillStyle = '#f4f6f8';
+      mkCtx.fillRect(0, 0, 1024, 512);
+      mkCtx.fillStyle = '#0047ab';
+      mkCtx.fillRect(0, 150, 1024, 200);
+      mkCtx.fillStyle = '#ffffff';
+      mkCtx.font = 'bold 108px Arial';
+      mkCtx.textAlign = 'center';
+      mkCtx.fillText('MILK', 512, 284);
+    </script>
+
+    <script>
+      const scene = document.querySelector('a-scene');
+      scene.addEventListener('loaded', () => {
+        const threeRenderer = scene.renderer;
+        threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+        scene.object3D.traverse((object) => {
+          if (!object.isMesh) return;
+          const materials = Array.isArray(object.material) ? object.material : [object.material];
+          for (const material of materials) {
+            for (const texture of Object.values(material || {})) {
+              if (texture && texture.isTexture) {
+                texture.anisotropy = threeRenderer.capabilities.getMaxAnisotropy();
+                texture.needsUpdate = true;
+              }
+            }
+          }
+        });
+      });
+    </script>
+
+    <!-- Camera positioned along the pathway looking into the Gazebo -->
+    <a-entity position="0 1.8 11.5">
+      <a-camera look-controls wasd-controls fov="70"></a-camera>
+    </a-entity>
+
+    <!-- Lighting -->
+    <a-light type="ambient" color="#ffffff" intensity="0.65"></a-light>
+    <a-light type="directional" position="8 15 10" intensity="0.85" castShadow="true"></a-light>
+    <a-light type="point" position="0 3.2 -2" intensity="0.7" color="#fff9e6"></a-light>
+
+    <!-- Blue Sky -->
+    <a-sky color="#4da6ff"></a-sky>
+
+    <!-- Checkered Green Ground -->
+    <a-plane position="0 0 0" rotation="-90 0 0" width="120" height="120" 
+             material="src: #grass-tex; repeat: 30 30; roughness: 0.9" receiveShadow="true"></a-plane>
+
+
+    <!-- ========================================== -->
+    <!--     LARGE CURVED MINT-GREEN WALLS          -->
+    <!-- ========================================== -->
+    <!-- Outer Curved Backdrop Wall (Open in front for entrance) -->
+    <a-cylinder position="0 2.5 -1" radius="11.5" height="5" 
+                open-ended="true" theta-start="25" theta-length="310" 
+                side="double" color="#66e0a3" roughness="0.5" shadow="receive: true">
+    </a-cylinder>
+
+
+    <!-- ========================================== -->
+    <!--          STEPPING-STONE PATHWAY            -->
+    <!-- ========================================== -->
+    <a-entity id="pathway" position="0 0.02 0">
+      <!-- Stone slabs leading from camera (Z=9.5) to Gazebo steps (Z=1.6) -->
+      <a-box position="0 0 9.0" width="2.2" height="0.06" depth="0.65" color="#d9c8c0" shadow="receive: true"></a-box>
+      <a-box position="0 0 8.1" width="2.2" height="0.06" depth="0.65" color="#e3d5ce" shadow="receive: true"></a-box>
+      <a-box position="0 0 7.2" width="2.2" height="0.06" depth="0.65" color="#d9c8c0" shadow="receive: true"></a-box>
+      <a-box position="0 0 6.3" width="2.2" height="0.06" depth="0.65" color="#e3d5ce" shadow="receive: true"></a-box>
+      <a-box position="0 0 5.4" width="2.2" height="0.06" depth="0.65" color="#d9c8c0" shadow="receive: true"></a-box>
+      <a-box position="0 0 4.5" width="2.2" height="0.06" depth="0.65" color="#e3d5ce" shadow="receive: true"></a-box>
+      <a-box position="0 0 3.6" width="2.2" height="0.06" depth="0.65" color="#d9c8c0" shadow="receive: true"></a-box>
+      <a-box position="0 0 2.7" width="2.2" height="0.06" depth="0.65" color="#e3d5ce" shadow="receive: true"></a-box>
+      <a-box position="0 0 1.8" width="2.2" height="0.06" depth="0.65" color="#d9c8c0" shadow="receive: true"></a-box>
+    </a-entity>
+
+
+    <!-- ========================================== -->
+    <!--           MINT-GREEN GAZEBO                -->
+    <!-- ========================================== -->
+    <a-entity id="gazebo" position="0 0 -2">
+      <!-- Circular Base Platform / Steps -->
+      <a-cylinder position="0 0.08 0" radius="3.6" height="0.16" color="#c7b8b0" receiveShadow="true"></a-cylinder>
+      <a-cylinder position="0 0.22 0" radius="3.1" height="0.14" color="#ded2cc" receiveShadow="true"></a-cylinder>
+
+      <!-- Lower Curved Balustrade Wall (Open at front entrance) -->
+      <a-cylinder position="0 0.85 0" radius="2.85" height="1.15" 
+                  open-ended="true" theta-start="28" theta-length="304" 
+                  side="double" color="#5cd69a" castShadow="true" receiveShadow="true"></a-cylinder>
+
+      <!-- Upper Valance / Roof Trim Ring -->
+      <a-cylinder position="0 3.15 0" radius="2.9" height="0.45" 
+                  open-ended="true" side="double" color="#5cd69a" castShadow="true"></a-cylinder>
+
+      <!-- Conical Gazebo Roof -->
+      <a-cone position="0 4.25 0" radius-bottom="3.25" radius-top="0.05" height="1.8" 
+              segments-radial="16" color="#66e0a3" castShadow="true"></a-cone>
+      <!-- Roof Finial Ball -->
+      <a-sphere position="0 5.2 0" radius="0.12" color="#47b881"></a-sphere>
+
+      <!-- Gazebo Support Pillars (8 Pillars around perimeter) -->
+      <!-- Front Entrance Pillars -->
+      <a-cylinder position="-1.32 1.85 2.52" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <a-cylinder position="1.32 1.85 2.52" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <!-- Side & Back Pillars -->
+      <a-cylinder position="-2.65 1.85 1.05" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <a-cylinder position="2.65 1.85 1.05" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <a-cylinder position="-2.65 1.85 -1.05" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <a-cylinder position="2.65 1.85 -1.05" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <a-cylinder position="-1.25 1.85 -2.55" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+      <a-cylinder position="1.25 1.85 -2.55" radius="0.09" height="3.15" color="#47b881" castShadow="true"></a-cylinder>
+
+
+      <!-- ========================================== -->
+      <!--      TABLE & CHAIRS INSIDE GAZEBO          -->
+      <!--      (Gazebo Floor Top is at Y = 0.29)     -->
+      <!-- ========================================== -->
+      <a-entity id="dining-set" position="0 0.29 0">
+        
+        <!-- TABLE (Tabletop surface at Y = 0.85) -->
+        <a-box position="0 0.82 0" width="1.65" height="0.06" depth="1.05" color="#5c3a21" castShadow="true" receiveShadow="true"></a-box>
+        <!-- 4 Table Legs -->
+        <a-cylinder position="-0.72 0.41 -0.42" radius="0.04" height="0.82" color="#3d2514" castShadow="true"></a-cylinder>
+        <a-cylinder position="0.72 0.41 -0.42" radius="0.04" height="0.82" color="#3d2514" castShadow="true"></a-cylinder>
+        <a-cylinder position="-0.72 0.41 0.42" radius="0.04" height="0.82" color="#3d2514" castShadow="true"></a-cylinder>
+        <a-cylinder position="0.72 0.41 0.42" radius="0.04" height="0.82" color="#3d2514" castShadow="true"></a-cylinder>
+
+        <!-- CHAIR 1 (Left Side of Table) -->
+        <a-entity position="-1.05 0 0" rotation="0 90 0">
+          <a-box position="0 0.46 0" width="0.48" height="0.05" depth="0.48" color="#7a4b2a" castShadow="true"></a-box>
+          <a-box position="0 0.82 -0.21" width="0.48" height="0.45" depth="0.04" color="#7a4b2a" castShadow="true"></a-box>
+          <a-cylinder position="-0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-cylinder position="0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-cylinder position="-0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-cylinder position="0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+        </a-entity>
+
+        <!-- CHAIR 2 (Right Side of Table) -->
+        <a-entity position="1.05 0 0" rotation="0 -90 0">
+          <a-box position="0 0.46 0" width="0.48" height="0.05" depth="0.48" color="#7a4b2a" castShadow="true"></a-box>
+          <a-box position="0 0.82 -0.21" width="0.48" height="0.45" depth="0.04" color="#7a4b2a" castShadow="true"></a-box>
+          <a-cylinder position="-0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-cylinder position="0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-cylinder position="-0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-cylinder position="0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+        </a-entity>
+
+
+        <!-- ========================================== -->
+        <!--   ITEMS ON TABLE (Surface Y = 0.85)        -->
+        <!-- ========================================== -->
+
+        <!-- 1. MILO TIN -->
+        <a-entity id="milo-tin" position="-0.18 0.85 -0.08" rotation="0 -90 0">
+          <a-cylinder position="0 0.12 0" radius="0.08" height="0.24" material="src: #milo-tex" castShadow="true"></a-cylinder>
+          <!-- Gold Lid & Silver Base Rim -->
+          <a-cylinder position="0 0.242 0" radius="0.082" height="0.012" color="#d4af37"></a-cylinder>
+          <a-cylinder position="0 0.005 0" radius="0.082" height="0.01" color="#cccccc"></a-cylinder>
+        </a-entity>
+
+        <!-- 2. MILK TIN -->
+        <a-entity id="milk-tin" position="0.18 0.85 -0.08" rotation="0 -90 0">
+          <a-cylinder position="0 0.075 0" radius="0.058" height="0.15" material="src: #milk-tex" castShadow="true"></a-cylinder>
+          <!-- Metallic Top & Bottom -->
+          <a-cylinder position="0 0.152 0" radius="0.06" height="0.008" color="#d9d9d9" metalness="0.7"></a-cylinder>
+          <a-cylinder position="0 0.004 0" radius="0.06" height="0.008" color="#d9d9d9" metalness="0.7"></a-cylinder>
+        </a-entity>
+
+        <!-- 3. CUP 1 (Left) -->
+        <a-entity id="cup-1" position="-0.50 0.85 0.12" rotation="0 25 0">
+          <a-cylinder position="0 0.055 0" radius="0.05" height="0.11" color="#1e88e5" open-ended="true" side="double" castShadow="true"></a-cylinder>
+          <a-cylinder position="0 0.006 0" radius="0.05" height="0.012" color="#1e88e5"></a-cylinder>
+          <a-cylinder position="0 0.085 0" radius="0.048" height="0.005" color="#4e2a14"></a-cylinder>
+          <a-torus position="0.05 0.055 0" rotation="0 0 -90" radius="0.03" radius-tubular="0.007" arc="180" color="#1e88e5"></a-torus>
+        </a-entity>
+
+        <!-- 4. CUP 2 (Right) -->
+        <a-entity id="cup-2" position="0.50 0.85 0.12" rotation="0 -155 0">
+          <a-cylinder position="0 0.055 0" radius="0.05" height="0.11" color="#e53935" open-ended="true" side="double" castShadow="true"></a-cylinder>
+          <a-cylinder position="0 0.006 0" radius="0.05" height="0.012" color="#e53935"></a-cylinder>
+          <a-cylinder position="0 0.085 0" radius="0.048" height="0.005" color="#4e2a14"></a-cylinder>
+          <a-torus position="0.05 0.055 0" rotation="0 0 -90" radius="0.03" radius-tubular="0.007" arc="180" color="#e53935"></a-torus>
+        </a-entity>
+
+      </a-entity>
+    </a-entity>
+
+  </a-scene>
+</body>
+</html>
