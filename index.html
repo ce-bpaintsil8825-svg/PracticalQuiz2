@@ -11,7 +11,7 @@
     
     <!-- Procedural Textures via Assets (No external files needed) -->
     <a-assets>
-      <!-- Green Checkered Grass Texture -->
+      <!-- Green Checkered Ground Texture -->
       <canvas id="grass-tex" width="512" height="512"></canvas>
       <!-- Milo Label Texture -->
       <canvas id="milo-tex" width="1024" height="512"></canvas>
@@ -20,7 +20,7 @@
     </a-assets>
 
     <script>
-      // 1. Draw Checkered Green Grass Pattern
+      // 1. Draw a green checkerboard ground texture
       const grassCanvas = document.getElementById('grass-tex');
       const gCtx = grassCanvas.getContext('2d');
       gCtx.fillStyle = '#0b7a0b';
@@ -92,16 +92,10 @@
     <a-plane position="0 0 0" rotation="-90 0 0" width="120" height="120" 
              material="src: #grass-tex; repeat: 30 30; roughness: 0.9" receiveShadow="true"></a-plane>
 
-
-    <!-- ========================================== -->
-    <!--     LARGE CURVED MINT-GREEN WALLS          -->
-    <!-- ========================================== -->
-    <!-- Outer Curved Backdrop Wall (Open in front for entrance) -->
-    <a-cylinder position="0 2.5 -1" radius="11.5" height="5" 
-                open-ended="true" theta-start="25" theta-length="310" 
-                side="double" color="#66e0a3" roughness="0.5" shadow="receive: true">
-    </a-cylinder>
-
+    <!-- Curved green enclosure around the scene -->
+    <a-cylinder position="0 2.5 -1" radius="11.5" height="5"
+                open-ended="true" theta-start="25" theta-length="310"
+                side="double" color="#66e0a3" roughness="0.5" shadow="receive: true"></a-cylinder>
 
     <!-- ========================================== -->
     <!--          STEPPING-STONE PATHWAY            -->
