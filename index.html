@@ -124,36 +124,32 @@
     <!--              BROWN SUMMER HUT               -->
     <!-- ========================================== -->
     <a-entity id="gazebo" position="0 0 -2">
-      <!-- Circular Base Platform / Steps -->
-      <a-cylinder position="0 0.08 0" radius="3.6" height="0.16" color="#c7b8b0" receiveShadow="true"></a-cylinder>
-      <a-cylinder position="0 0.22 0" radius="3.1" height="0.14" color="#ded2cc" receiveShadow="true"></a-cylinder>
+      <!-- Square Base Platform / Steps -->
+      <a-box position="0 0.08 0" width="7.2" height="0.16" depth="7.2" color="#c7b8b0" receiveShadow="true"></a-box>
+      <a-box position="0 0.22 0" width="6.2" height="0.14" depth="6.2" color="#ded2cc" receiveShadow="true"></a-box>
 
-      <!-- Lower Curved Balustrade Wall (Open at front entrance) -->
-      <a-cylinder position="0 0.85 0" radius="2.85" height="1.15" 
-                  open-ended="true" theta-start="28" theta-length="304" 
-                  side="double" color="#8b5a2b" castShadow="true" receiveShadow="true"></a-cylinder>
+      <!-- Square Balustrade (Open at the front entrance) -->
+      <a-box position="0 0.85 -2.8" width="5.6" height="1.15" depth="0.12" color="#8b5a2b" castShadow="true" receiveShadow="true"></a-box>
+      <a-box position="-2.8 0.85 0" width="0.12" height="1.15" depth="5.6" color="#8b5a2b" castShadow="true" receiveShadow="true"></a-box>
+      <a-box position="2.8 0.85 0" width="0.12" height="1.15" depth="5.6" color="#8b5a2b" castShadow="true" receiveShadow="true"></a-box>
 
-      <!-- Upper Valance / Roof Trim Ring -->
-      <a-cylinder position="0 3.15 0" radius="2.9" height="0.45" 
-                  open-ended="true" side="double" color="#8b5a2b" castShadow="true"></a-cylinder>
+      <!-- Square Roof Trim -->
+      <a-box position="0 3.15 -2.9" width="5.8" height="0.45" depth="0.14" color="#8b5a2b" castShadow="true"></a-box>
+      <a-box position="0 3.15 2.9" width="5.8" height="0.45" depth="0.14" color="#8b5a2b" castShadow="true"></a-box>
+      <a-box position="-2.9 3.15 0" width="0.14" height="0.45" depth="5.8" color="#8b5a2b" castShadow="true"></a-box>
+      <a-box position="2.9 3.15 0" width="0.14" height="0.45" depth="5.8" color="#8b5a2b" castShadow="true"></a-box>
 
-      <!-- Conical Gazebo Roof -->
-      <a-cone position="0 4.25 0" radius-bottom="3.25" radius-top="0.05" height="1.8" 
-              segments-radial="16" color="#6f3e1f" castShadow="true"></a-cone>
+      <!-- Square-Pyramid Roof -->
+      <a-cone position="0 4.25 0" rotation="0 45 0" radius-bottom="4.6" radius-top="0.05" height="1.8" 
+              segments-radial="4" color="#6f3e1f" castShadow="true"></a-cone>
       <!-- Roof Finial Ball -->
       <a-sphere position="0 5.2 0" radius="0.12" color="#4a2c18"></a-sphere>
 
-      <!-- Gazebo Support Pillars (8 Pillars around perimeter) -->
-      <!-- Front Entrance Pillars -->
-      <a-cylinder position="-1.32 1.85 2.52" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <a-cylinder position="1.32 1.85 2.52" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <!-- Side & Back Pillars -->
-      <a-cylinder position="-2.65 1.85 1.05" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <a-cylinder position="2.65 1.85 1.05" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <a-cylinder position="-2.65 1.85 -1.05" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <a-cylinder position="2.65 1.85 -1.05" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <a-cylinder position="-1.25 1.85 -2.55" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
-      <a-cylinder position="1.25 1.85 -2.55" radius="0.09" height="3.15" color="#6f3e1f" castShadow="true"></a-cylinder>
+      <!-- Square Hut Support Pillars -->
+      <a-box position="-2.65 1.85 -2.65" width="0.18" height="3.15" depth="0.18" color="#6f3e1f" castShadow="true"></a-box>
+      <a-box position="2.65 1.85 -2.65" width="0.18" height="3.15" depth="0.18" color="#6f3e1f" castShadow="true"></a-box>
+      <a-box position="-2.65 1.85 2.65" width="0.18" height="3.15" depth="0.18" color="#6f3e1f" castShadow="true"></a-box>
+      <a-box position="2.65 1.85 2.65" width="0.18" height="3.15" depth="0.18" color="#6f3e1f" castShadow="true"></a-box>
 
 
       <!-- ========================================== -->
@@ -172,22 +168,22 @@
 
         <!-- CHAIR 1 (Left Side of Table) -->
         <a-entity position="-1.05 0 0" rotation="0 90 0">
-          <a-box position="0 0.46 0" width="0.48" height="0.05" depth="0.48" color="#7a4b2a" castShadow="true"></a-box>
-          <a-box position="0 0.82 -0.21" width="0.48" height="0.45" depth="0.04" color="#7a4b2a" castShadow="true"></a-box>
-          <a-cylinder position="-0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
-          <a-cylinder position="0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
-          <a-cylinder position="-0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
-          <a-cylinder position="0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-box position="0 0.46 0" width="0.48" height="0.05" depth="0.48" color="#202020" castShadow="true"></a-box>
+          <a-box position="0 0.82 -0.21" width="0.48" height="0.45" depth="0.04" color="#202020" castShadow="true"></a-box>
+          <a-cylinder position="-0.20 0.23 -0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
+          <a-cylinder position="0.20 0.23 -0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
+          <a-cylinder position="-0.20 0.23 0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
+          <a-cylinder position="0.20 0.23 0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
         </a-entity>
 
         <!-- CHAIR 2 (Right Side of Table) -->
         <a-entity position="1.05 0 0" rotation="0 -90 0">
-          <a-box position="0 0.46 0" width="0.48" height="0.05" depth="0.48" color="#7a4b2a" castShadow="true"></a-box>
-          <a-box position="0 0.82 -0.21" width="0.48" height="0.45" depth="0.04" color="#7a4b2a" castShadow="true"></a-box>
-          <a-cylinder position="-0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
-          <a-cylinder position="0.20 0.23 -0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
-          <a-cylinder position="-0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
-          <a-cylinder position="0.20 0.23 0.20" radius="0.025" height="0.46" color="#4a2c18"></a-cylinder>
+          <a-box position="0 0.46 0" width="0.48" height="0.05" depth="0.48" color="#202020" castShadow="true"></a-box>
+          <a-box position="0 0.82 -0.21" width="0.48" height="0.45" depth="0.04" color="#202020" castShadow="true"></a-box>
+          <a-cylinder position="-0.20 0.23 -0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
+          <a-cylinder position="0.20 0.23 -0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
+          <a-cylinder position="-0.20 0.23 0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
+          <a-cylinder position="0.20 0.23 0.20" radius="0.025" height="0.46" color="#101010"></a-cylinder>
         </a-entity>
 
 
